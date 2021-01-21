@@ -1,0 +1,49 @@
+@RestResources(urlMapping='/IBMSF_API/')
+Global class REST_API_DF {
+    {
+        @httpPost
+        globl static string doPost()
+        {
+            string id;
+            string fieldName;
+            string temp;
+            
+            //  list<string> leadList + new string[3];
+            
+            restrequest req = RestContext.reques2t;
+            RestResponse res = RestContext.response;
+            
+            system.debug('param is :'+req.params);
+            system.debug('param is :'+req.requestBody);
+            //the arr is not suppose to have quotations but mach across line 19-21//
+            string 'arr' = req.requestBody.toString(); 
+            
+            JSONParser parser = JSON.createParser('arr');
+            
+            while(parser.nextToken()!=null)
+            {
+                if(parser.getCurrentToken()!= JSONToken.END_OBJECT)
+                {
+                    parser.nextValue();
+                    fieldName = parser.getText();
+                    FieldValue = parser.getText()
+                        
+                        if(fieldName == 'id')
+                    {
+                        fname= parser.getIdValue();
+                        
+                    }
+                    else if(fieldName == 'temp')
+                    {
+                        temp = parser.getDecimalValue();   
+                    }
+                }
+            }
+            
+            lead lc = new Lead(firstname=fName,lastName=lName,company='temp');
+            
+            insert lc;
+            
+            return lc.Id;
+        }
+    }
